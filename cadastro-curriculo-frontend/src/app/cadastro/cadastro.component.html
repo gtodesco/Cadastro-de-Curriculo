@@ -1,0 +1,139 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title>Cadastro de Currículo</mat-card-title>
+    <form
+      [formGroup]="form">
+      <div formGroupName="curriculo">
+        <mat-form-field>
+          <input
+            matInput
+            required
+            formControlName="nome"
+            placeholder="Nome"
+            [(ngModel)]="nome">
+          <mat-error *ngIf="form.get('curriculo.nome').hasError('required')">{{getRequiredMessage('nome')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            required
+            formControlName="email"
+            placeholder="E-mail"
+            [(ngModel)]="email">
+          <mat-error *ngIf="form.get('curriculo.email').hasError('required')">{{getRequiredMessage('email')}}</mat-error>
+          <mat-error *ngIf="form.get('curriculo.email').hasError('email')">E-mail inválido</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            required
+            formControlName="cpf"
+            placeholder="CPF"
+            mask="000.000.000-00"
+            minlength="11"
+            [(ngModel)]="cpf">
+          <mat-error *ngIf="form.get('curriculo.cpf').hasError('required')">{{getRequiredMessage('cpf')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="dataNascimento"
+            placeholder="Data de Nascimento"
+            mask="00/00/0000"
+            minlength="8"
+            [(ngModel)]="dataNascimento">
+          <mat-error *ngIf="form.get('curriculo.dataNascimento').hasError('required')">{{getRequiredMessage('dataNascimento')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            required
+            formControlName="cep"
+            placeholder="CEP"
+            mask="00000-000"
+            minlength="8"
+            (blur)="getEnderecoPorCep()"
+            [(ngModel)]="cep">
+          <mat-error *ngIf="form.get('curriculo.cep').hasError('required')">{{getRequiredMessage('cep')}}</mat-error>
+        </mat-form-field>
+        <mat-radio-group formControlName="sexo" [(ngModel)]="sexo">
+          <mat-radio-button [checked]="sexo === Masculino" *ngFor="let sexo of sexos" [value]="sexo" color="primary">
+            {{sexo}}
+          </mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field>
+          <input
+            matInput
+            required
+            formControlName="endereco"
+            placeholder="Endereço"
+            [(ngModel)]="endereco">
+          <mat-error *ngIf="form.get('curriculo.endereco').hasError('required')">{{getRequiredMessage('endereco')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            required
+            formControlName="pais"
+            placeholder="País"
+            [(ngModel)]="pais">
+          <mat-error *ngIf="form.get('curriculo.pais').hasError('required')">{{getRequiredMessage('pais')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            required
+            formControlName="escolaridade"
+            placeholder="Escolaridade"
+            [(ngModel)]="escolaridade">
+          <mat-error *ngIf="form.get('curriculo.escolaridade').hasError('required')">{{getRequiredMessage('escolaridade')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea
+            matInput
+            rows="4"
+            required
+            formControlName="formacao"
+            placeholder="Formação"
+            [(ngModel)]="formacao"></textarea>
+          <mat-error *ngIf="form.get('curriculo.formacao').hasError('required')">{{getRequiredMessage('formacao')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea
+            matInput
+            rows="4"
+            required
+            formControlName="experienciaProfissional"
+            placeholder="Experiência Profissional"
+            [(ngModel)]="experienciaProfissional"></textarea>
+          <mat-error *ngIf="form.get('curriculo.experienciaProfissional').hasError('required')">{{getRequiredMessage('experienciaProfissional')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            required
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+            placeholder="Password"
+            [(ngModel)]="password">
+          <mat-error *ngIf="form.get('curriculo.password').hasError('required')">{{getRequiredMessage('password')}}</mat-error>
+          <mat-icon
+            matSuffix
+            (click)="hide = !hide">
+            {{hide ? 'visibility' : 'visibility_off'}}
+          </mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="cadastro_buttons">
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="form.invalid"
+          (click)="salvarDados()">
+          Salvar
+        </button>
+        <a routerLink="/login" (click)="sair()">Sair</a>
+      </div>
+    </form>
+  </mat-card>
+</div>
